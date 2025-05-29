@@ -29,7 +29,10 @@ public class ItemObject : MonoBehaviour
     public void PickUpItem()
     {
         if (!Inventory.instance.CanAddItem() && itemData.itemType == ItemType.Equipment)
+        {
+            PlayerManager.instance.player.fx.CreatePopUpText("Inventory is full");
             return;
+        }
 
         AudioManager.instance.PlaySFX(18, transform);
         Inventory.instance.AddItem(itemData);

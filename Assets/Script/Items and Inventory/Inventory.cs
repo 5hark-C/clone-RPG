@@ -35,6 +35,7 @@ public class Inventory : MonoBehaviour,ISaveManager
     private float armorCooldown;
 
     [Header("Data base")]
+    public List<ItemData> itemDataBase;
     public List<InventoryItem> loadedItems;
     public List<ItemData_Equipment> loadedEquipment;
 
@@ -62,6 +63,7 @@ public class Inventory : MonoBehaviour,ISaveManager
         equipmentslot = equipmentSlotParent.GetComponentsInChildren<UI_EquipmentSlot>();
         statslot = statSlotParent.GetComponentsInChildren<UI_StatSlot>();
 
+        
         AddStartingItem();
     }
 
@@ -333,7 +335,7 @@ public class Inventory : MonoBehaviour,ISaveManager
     {
         foreach(KeyValuePair<string,int> pair in _data.inventory)
         {
-            foreach(var item in GetItemDataBase())
+            foreach(var item in itemDataBase)
             {
                 if(item != null && item.itemID == pair.Key)
                 {
@@ -347,7 +349,7 @@ public class Inventory : MonoBehaviour,ISaveManager
 
         foreach(string loadedItemID in _data.equipmentID)
         {
-            foreach(var item in GetItemDataBase())
+            foreach(var item in itemDataBase)
             {
                 if(item!=null && loadedItemID == item.itemID)
                 {
@@ -365,22 +367,26 @@ public class Inventory : MonoBehaviour,ISaveManager
 
         foreach(KeyValuePair<ItemData,InventoryItem> pair in inventoryDictionary)
         {
-            Debug.Log($"Saving inventory item: {pair.Key.itemID}, count: {pair.Value.stackSize}");
+            
             _data.inventory.Add(pair.Key.itemID, pair.Value.stackSize);
         }
 
         foreach(KeyValuePair<ItemData,InventoryItem> pair in stashDictionary)
         {
-            Debug.Log($"Saving stash item: {pair.Key.itemID}, count: {pair.Value.stackSize}");
+            
             _data.inventory.Add(pair.Key.itemID,pair.Value.stackSize);
         }
 
         foreach(KeyValuePair<ItemData_Equipment,InventoryItem> pair in equipmentDictionary)
         {
-            Debug.Log($"Saving equipment: {pair.Key.itemID}");
+            
             _data.equipmentID.Add(pair.Key.itemID);
         }
     }
+
+    #if UNITY_EDITOR
+    [ContextMenu("Fill up item data base")]
+    private void FillUpItemDataBase() => itemDataBase = new List<ItemData>(GetItemDataBase());
 
     private List<ItemData> GetItemDataBase()
     {
@@ -395,4 +401,6 @@ public class Inventory : MonoBehaviour,ISaveManager
         }
         return itemDataBase;
     }
+
+#endif
 }

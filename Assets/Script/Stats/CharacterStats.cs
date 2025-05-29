@@ -74,8 +74,10 @@ public class CharacterStats : MonoBehaviour
     public bool isDead {  get; private set; }
     private bool isVulnerable;
 
+    public bool isInvincible {  get; private set; }
 
-   protected virtual void Start()
+
+    protected virtual void Start()
     {
         fx = GetComponent<EntityFX>();
         critPower.SetDefaultValue(150);
@@ -134,17 +136,22 @@ public class CharacterStats : MonoBehaviour
     //出伤逻辑
     public virtual void DoDamage(CharacterStats _targetStats)
     {
+        bool criticalStrike = false;
        
         if (TargetCanAvoidAttack(_targetStats))
             return;
+
+        _targetStats.GetComponent<Entity>().SetupKnockbackDir(transform);
 
         int totalDamage = damage.GetValue() + strength.GetValue();
 
         if (CanCrit())
         {
             totalDamage = CalculateCriticalDamage(totalDamage);
+            criticalStrike = true;
         }
-            
+
+        fx.CreateHitFx(_targetStats.transform,criticalStrike);    
 
         totalDamage = CheckTargetArmor(_targetStats, totalDamage);
         _targetStats.TakeDamage(totalDamage);
@@ -327,6 +334,9 @@ public class CharacterStats : MonoBehaviour
     #region 数值计算区（生命，伤害，护甲等）
     public virtual void TakeDamage(int _damage)
     {
+        if (isInvincible)
+            return;
+
         DecreaseHealthBy(_damage);
 
         GetComponent<Entity>().DamageImpact();
@@ -354,6 +364,9 @@ public class CharacterStats : MonoBehaviour
             _damage = Mathf.RoundToInt(_damage * 1.3f);
 
         currentHealth -= _damage;
+
+        if (_damage > 0)
+            fx.CreatePopUpText(_damage.ToString());
 
         if(onHealthChanged != null)
             onHealthChanged();
@@ -460,5 +473,16 @@ public class CharacterStats : MonoBehaviour
         else if (_statType == StatType.lightingDamage) return lightingDamage;
 
         return null;
+    }
+
+    public void KillEntity()
+    {
+        if (!isDead)
+            Die();
+    }
+
+    public void MakeInvinciable(bool _invinciable)
+    {
+        isInvincible = _invinciable;
     }
 }

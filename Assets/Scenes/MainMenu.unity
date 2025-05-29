@@ -156,7 +156,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -6.8738, y: 350.28403}
+  m_AnchoredPosition: {x: 38, y: 350.28403}
   m_SizeDelta: {x: 1160.1511, y: 379.4219}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &127796747
@@ -179,7 +179,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Shark's Adventure
+  m_text: Name? Eh, whatever
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 84bdc42b70bb5e54aa18bb33c1fa834e, type: 2}
   m_sharedMaterial: {fileID: -8065883861848785263, guid: 84bdc42b70bb5e54aa18bb33c1fa834e, type: 2}
@@ -213,8 +213,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 3
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1451,6 +1451,10 @@ PrefabInstance:
     - target: {fileID: 1900079679830182080, guid: 4f2eb3158fb295247b0be2f33392d52b, type: 3}
       propertyPath: m_Name
       value: DarkScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 1900079679830182080, guid: 4f2eb3158fb295247b0be2f33392d52b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9149859820692144348, guid: 4f2eb3158fb295247b0be2f33392d52b, type: 3}
       propertyPath: m_Pivot.x

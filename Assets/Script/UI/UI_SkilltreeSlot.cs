@@ -85,7 +85,7 @@ public class UI_SkilltreeSlot : MonoBehaviour,IPointerEnterHandler,IPointerExitH
         if(_data.skillTree.TryGetValue(skillName,out bool value))
         {
             unlocked = value;
-            Debug.Log($"Loading skill {skillName}, unlocked: {unlocked}");
+            
         }
     }
 

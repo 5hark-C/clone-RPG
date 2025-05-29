@@ -124,7 +124,16 @@ public class SwordSkill : Skills
 
         DotsActive(false);
 
-       
+        int soundIndex;
+        if (swordType == SwordType.Pierce)
+        {
+            soundIndex = 28;
+        }
+        else
+        {
+            soundIndex = 27;
+        }
+        AudioManager.instance.PlaySFX(soundIndex, player.transform);
     }
 
     #region Unlock rengion

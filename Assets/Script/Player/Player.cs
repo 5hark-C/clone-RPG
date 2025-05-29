@@ -20,17 +20,14 @@ public class Player : Entity
     public float dashDuration;
     public float dashDir {  get; private set; }
     private float defaultDashSpeed;
-    public bool isInvincible;
-
-   
-
+     
     [Header("Attack details")]
     public Vector2[] attackMovement;
     public float counterAttackDuration = .2f;
     
     public SkillManger skill {  get; private set; }
     public GameObject sword { get; private set; }
-
+    public PlayerFX fx { get; private set; }
 
 
     #region State
@@ -76,6 +73,8 @@ public class Player : Entity
     {
        base.Start();
 
+        fx = GetComponent<PlayerFX>();
+
         skill = SkillManger.instance;
 
         stateMachine.Initialize(idleState);
@@ -87,6 +86,9 @@ public class Player : Entity
 
     protected override void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+
         base.Update();
         stateMachine.currentState.Update();
         CheckForDashInput();
@@ -170,6 +172,9 @@ public class Player : Entity
         stateMachine.ChangeState(deadState);
     }
 
-
+    protected override void SetupZeroKnockbackPower()
+    {
+        knockbackPower = new Vector2(0, 0);
+    }
 
 }

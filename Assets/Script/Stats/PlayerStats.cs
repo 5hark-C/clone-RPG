@@ -31,10 +31,15 @@ public class PlayerStats : CharacterStats
 
     protected override void DecreaseHealthBy(int _damage)
     {
-        if (player.isInvincible)
-            return;
 
         base.DecreaseHealthBy(_damage);
+
+        if(_damage > GetMaxHealthValue() * .3f)
+        {
+            player.SetupKnockbackPower(new Vector2(10,7));
+            player.fx.ScreenShake(player.fx.shakeHighDamage);
+            AudioManager.instance.PlaySFX(35, null);
+        }
 
         ItemData_Equipment currentArmor = Inventory.instance.GetEquipment(EquipmentType.Aromr);
         if (currentArmor != null)
