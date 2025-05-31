@@ -28,7 +28,7 @@ public class SlimeGroundState : EnemyState
     {
         base.Update();
 
-        if (enemy.IsPlayerDetected() || Vector2.Distance(enemy.transform.position, player.position) < 2)
+        if (enemy.IsPlayerDetected() || Vector2.Distance(enemy.transform.position, player.position) < enemy.angerDistance)
         {
             stateMachine.ChangeState(enemy.battleState);
         }

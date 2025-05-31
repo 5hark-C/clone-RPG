@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyStats : CharacterStats
 {
-    private Enemy_Skeleton enemy;
+    private Enemy enemy;
     private ItemDrop myDrop;
     public Stats soulsDropAmount;
 
@@ -21,7 +21,7 @@ public class EnemyStats : CharacterStats
 
         base.Start();
 
-        enemy = GetComponent<Enemy_Skeleton>();
+        enemy = GetComponent<Enemy>();
         myDrop = GetComponent<ItemDrop>();
 
     }
