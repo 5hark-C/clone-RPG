@@ -13,9 +13,9 @@ public class Entity : MonoBehaviour
     #endregion
 
     [Header("Knockback info")]
-    [SerializeField] protected Vector2 knockbackOffset;
-    [SerializeField] protected Vector2 knockbackPower;
-    [SerializeField] protected float knockbackDuration;
+    [SerializeField] protected Vector2 knockbackOffset = new Vector2(.5f, 2);
+    [SerializeField] protected Vector2 knockbackPower = new Vector2(7,12);
+    [SerializeField] protected float knockbackDuration = .5f;
     protected bool isKnocked;
 
 

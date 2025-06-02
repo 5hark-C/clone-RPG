@@ -137,6 +137,9 @@ public class CharacterStats : MonoBehaviour
     public virtual void DoDamage(CharacterStats _targetStats)
     {
         bool criticalStrike = false;
+
+        if (_targetStats.isInvincible)
+            return;
        
         if (TargetCanAvoidAttack(_targetStats))
             return;

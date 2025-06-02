@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlimeStunnedState : EnemyState
+public class ArcherStunnedState : EnemyState
 {
-    private Enemy_Slime enemy;
-    public SlimeStunnedState(Enemy _enemyBase, EnemyStateMachine stateMachine, string _animBoolName, Enemy_Slime _enemy) : base(_enemyBase, stateMachine, _animBoolName)
+    private Enemy_Archer enemy;
+
+    public ArcherStunnedState(Enemy _enemyBase, EnemyStateMachine stateMachine, string _animBoolName, Enemy_Archer _enemy) : base(_enemyBase, stateMachine, _animBoolName)
     {
         this.enemy = _enemy;
     }
@@ -31,11 +32,6 @@ public class SlimeStunnedState : EnemyState
     public override void Update()
     {
         base.Update();
-
-        if(rb.velocity.y < .1f && enemy.IsGroundDetected())
-        {
-            enemy.anim.SetTrigger("StunFold");
-        }
 
         if (stateTimer < 0)
         {
