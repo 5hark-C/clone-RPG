@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlimeIdleState : SlimeGroundState
+public class ShadyIdleState : ShadyGroundedState
 {
-    public SlimeIdleState(Enemy _enemyBase, EnemyStateMachine stateMachine, string _animBoolName, Enemy_Slime _enemy) : base(_enemyBase, stateMachine, _animBoolName, _enemy)
+    public ShadyIdleState(Enemy _enemyBase, EnemyStateMachine stateMachine, string _animBoolName, Enemy_Shady _enemy) : base(_enemyBase, stateMachine, _animBoolName, _enemy)
     {
     }
 
