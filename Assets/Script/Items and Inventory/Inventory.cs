@@ -256,19 +256,14 @@ public class Inventory : MonoBehaviour,ISaveManager
 
     public bool CanCraft(ItemData_Equipment _itemToCraft,List<InventoryItem> _requiredMaterials)
     {
-        List<InventoryItem> materialsToRemove = new List<InventoryItem>();
-
-        for (int i = 0; i < _requiredMaterials.Count; i++)
+        //检测材料是否足够
+        foreach(var requiredItem in _requiredMaterials)
         {
-            if (stashDictionary.TryGetValue(_requiredMaterials[i].data,out InventoryItem stashValue))
+            if(stashDictionary.TryGetValue(requiredItem.data,out InventoryItem stashItem))
             {
-                if(stashValue.stackSize < _requiredMaterials[i].stackSize)
+                if(stashItem.stackSize < requiredItem.stackSize)
                 {
                     return false;
-                }
-                else
-                {
-                    materialsToRemove.Add(stashValue);
                 }
             }
             else
@@ -277,11 +272,14 @@ public class Inventory : MonoBehaviour,ISaveManager
             }
         }
 
-        for (int i = 0; i < materialsToRemove.Count; i++)
+        //如果材料足够就从列表中移除
+        foreach(var requiredMaterial in _requiredMaterials)
         {
-            RemoveItem(materialsToRemove[i].data);
+            for(int i = 0;i< requiredMaterial.stackSize;i++)
+            {
+                RemoveItem(requiredMaterial.data);
+            }
         }
-
         AddItem(_itemToCraft);
         return true;
     }

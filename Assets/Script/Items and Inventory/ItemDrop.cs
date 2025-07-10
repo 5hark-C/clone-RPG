@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ItemDrop : MonoBehaviour
 {
-    [SerializeField] private int possibleItemDrop;
-    [SerializeField] private ItemData[] possibleDrop;
-    private List<ItemData> dropList = new List<ItemData>();
+    [SerializeField] private int maxItemToDrop;
+    [SerializeField] private ItemData[] itemPool;
+    private List<ItemData> possibleDrop = new List<ItemData>();
 
     [SerializeField] private GameObject dropPerfab;
 
@@ -14,18 +14,29 @@ public class ItemDrop : MonoBehaviour
     //随机掉落逻辑
     public virtual void GenerateDrop()
     {
-        for (int i = 0; i < possibleDrop.Length; i++)
+        if(itemPool.Length == 0)
         {
-            if(Random.Range(0,100) <= possibleDrop[i].dropChance)
-                dropList.Add(possibleDrop[i]);
+            return;
         }
 
-        for (int i = 0; i < possibleItemDrop; i++)
+        foreach(ItemData item in itemPool)
         {
-            ItemData randomItem = dropList[Random.Range(0, dropList.Count - 1)];
+            if(item != null && Random.Range(0,100) < item.dropChance)
+            {
+                possibleDrop.Add(item);
+            }
+        }
 
-            dropList.Remove(randomItem);
-            DropItem(randomItem);
+        for(int i= 0; i < maxItemToDrop; i++)
+        {
+            if(possibleDrop.Count > 0)
+            {
+                int randomIndex = Random.Range(0, possibleDrop.Count);
+                ItemData itemToDrop = possibleDrop[randomIndex];
+
+                DropItem(itemToDrop);
+                possibleDrop.Remove(itemToDrop);
+            }
         }
     }
 
